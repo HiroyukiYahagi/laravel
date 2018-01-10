@@ -48,6 +48,59 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof AccessDeniedHttpException) {
+            return $this->accessDenied($request, $exception);
+        }
         return parent::render($request, $exception);
+    }
+
+    /**
+     * 未認証でアクセスした際の処理
+     *
+     * jsonリクエストの場合は404エラーを返す
+     * それ以外の場合は全てのガードからログアウトし、ログインページへリダイレクト
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception){
+        if($request->expectsJson()) {
+          return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        Auth::guard("user")->logout();
+
+        switch($exception->guards()[0]){
+        case 'user':
+            return redirect()->route('user.login');
+        default:
+            return redirect('/');
+        }
+    }
+
+    /**
+     * 認証済みユーザが権限不足のエンドポイントにアクセスした時のハンドリング
+     *
+     * jsonリクエストの場合は404エラーを返す
+     * それ以外の場合は全てのガードからログアウトし、ログインページへリダイレクト
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function accessDenied($request, AccessDeniedHttpException $exception){
+        if($request->expectsJson()) {
+          return response()->json(['error' => 'AccessDenied.'], 403);
+        }
+
+        Auth::guard("user")->logout();
+
+        switch($exception->guards()[0]){
+        case 'user':
+            return redirect()->route('user.login');
+        default:
+            return redirect('/');
+        }
     }
 }

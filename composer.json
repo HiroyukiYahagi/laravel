@@ -7,13 +7,18 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
+        "ellisthedev/laravel-5-robots": "^0.1.0",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/passport": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "laravel/tinker": "~1.0",
+        "roumen/sitemap": "^2.7"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "~1.0",
+        "krlove/eloquent-model-generator": "^1.2",
         "phpunit/phpunit": "~6.0",
         "symfony/thanks": "^1.0"
     },
@@ -23,7 +28,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Laravel\\Passport\\": "passport/"
         }
     },
     "autoload-dev": {

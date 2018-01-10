@@ -15,6 +15,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'title' => env('APP_TITLE', '株式会社Befard - Research Deeply &  Develop intensely'),
+    'description' => env('APP_DESCRIPTION', '株式会社Befard(ビファード)は多業界に渡って新しい事業や業務改善を提案するコンサルティング会社です。'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -65,7 +68,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'jp',
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +94,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'jp',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +170,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'RootController@index')->name('root.index');
+
+Route::get('/sitemap.xml', 'SiteMapController@index')->name('root.sitemap');
+
+Route::get('/robots.txt', function ()
+{
+    if (App::environment() == 'production') {
+        Robots::addUserAgent('*');
+        Robots::addSitemap('sitemap.xml');
+    } else {
+        Robots::addDisallow('*');
+    }
+    return Response::make(Robots::generate(), 200, ['Content-Type' => 'text/plain']);
 });
