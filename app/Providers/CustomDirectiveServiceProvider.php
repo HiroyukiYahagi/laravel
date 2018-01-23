@@ -29,7 +29,7 @@ class CustomDirectiveServiceProvider extends ServiceProvider
     {
         //日時の表示フォーマット
         Blade::directive('datetime', function ($expression) {
-            return "<?php echo !is_null($expression) ? (new DateTime($expression))->format('m/d/Y H:i') : null; ?>";
+            return "<?php echo !is_null($expression) ? (new DateTime($expression))->format('Y-m-d H:i') : null; ?>";
         });
 
         //日付の表示フォーマット
